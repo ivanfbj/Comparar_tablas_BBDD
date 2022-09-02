@@ -1,0 +1,9 @@
+greenlet==1.1.2
+numpy==1.23.2
+pandas==1.4.4
+pyodbc==4.0.32
+python-dateutil==2.8.2
+pytz==2022.2.1
+six==1.16.0
+SQLAlchemy==1.4.40
+tk==0.1.0
