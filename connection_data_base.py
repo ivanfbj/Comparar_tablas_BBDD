@@ -16,9 +16,9 @@ def windows_authentication(driver_name, server_name, database_name):
     except Exception as ex:
         print('Error en la conexión a la base de datos con pyodbc.')
 
-def windows_authentication_sqlalchemy(driver_name, server_name, database_name):
+def windows_authentication_sqlalchemy(server_name, database_name):
     try:
-        connection_string: str = f'DRIVER={driver_name};SERVER={server_name};DATABASE={database_name};trusted_connection=true'
+        connection_string: str = f'DRIVER=SQL Server;SERVER={server_name};DATABASE={database_name};trusted_connection=true'
         connection_url = URL.create("mssql+pyodbc", query={"odbc_connect": connection_string})
         print('Conexión exitosa a la base de datos con Sqlalchemy.')
         return create_engine(connection_url)

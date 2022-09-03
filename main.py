@@ -3,6 +3,7 @@ import connection_data_base as db
 import pandas as pd
 import time
 import os
+import querys_sql as sql
 import warnings
 # Con esta linea se puede omitir el mensaje de advertencia en el cual debo utilizar sqlalchemy con Pandas
 # esa linea de advertencia se genera cuando se utiliza pyodbc en vez de sqlalchemy
@@ -17,43 +18,40 @@ import warnings
 
 def print_message_hours(message):
     print(message, time.strftime("%H:%M:%S"))
+
+def print_time_start_finished(message,time_start,time_finish):
+    print(f'Tiempo en: {message}, INICIO-> {time_start} -  {time_start} <-FIN')
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     database_name = 'AdventureWorks2019'
-    # cursor = db.windows_authentication('SQL Server', 'AGN5\SQLEXPRESS','AdventureWorks2019')
-    connect_database_sqlalchemy = db.windows_authentication_sqlalchemy('SQL Server', 'AGN5\SQLEXPRESS', database_name)
-    # print(db.prueba())
-    # database_name = 'AdventureWorks2019'
-    # cursor.execute(f'''SELECT name FROM sysdatabases WHERE (name = '{database_name}')''')
-    # row_database = cursor.fetchone()
-    # print(row_database)
+    server_name = 'AGN5\SQLEXPRESS'
+    connect_database_sqlalchemy = db.windows_authentication_sqlalchemy(server_name, database_name)
 
-    print_message_hours('Inicio del sql_query con la conexión:')
-    sql_query = pd.read_sql_query('''
-        SELECT [DepartmentID]
-          ,[Name]
-          ,[GroupName]
-          ,[ModifiedDate]
-        FROM [AdventureWorks2019].[HumanResources].[Department]
-    ''', connect_database_sqlalchemy)
-    print_message_hours('Fin del sql_query con la conexión:')
+    start_sql_query = time.strftime("%H:%M:%S")
+    sql_query_tables = pd.read_sql_query(sql.list_all_tables(), connect_database_sqlalchemy)
+    finish_sql_query = time.strftime("%H:%M:%S")
+    print_time_start_finished('read_sql_query', start_sql_query, finish_sql_query)
 
     print('***************************')
 
-    print_message_hours('INICIO crear DataFrame:')
-    df = pd.DataFrame(sql_query)
-    print_message_hours('FIN crear DataFrame:')
+    start_data_frame = time.strftime("%H:%M:%S")
+    df = pd.DataFrame(sql_query_tables)
+    finish_data_frame = time.strftime("%H:%M:%S")
+    print_time_start_finished('DataFrame', start_data_frame, finish_data_frame)
 
-    print('***************************')
+    print('***************************', end='')
 
-    print_message_hours('Inicio Generar csv:')
+    start_to_csv = time.strftime("%H:%M:%S")
     getdate = time.strftime("%Hh%Mm%Ss")
     # name_file = f'{database_name}_{getdate}.csv'
     name_file = f'{database_name}.csv'
     file_abspath = os.path.abspath(name_file)
     df.to_csv(file_abspath, sep='|', index=False)
-    print_message_hours(f'{bcolors.OK}Fin Generar csv:{bcolors.RESET}')
-    print(f'Ruta completa donde queda el archivo csv: {bcolors.OK}{file_abspath}{bcolors.RESET}')
+    finish_to_csv = time.strftime("%H:%M:%S")
+    print(bcolors.OK)
+    print_time_start_finished('DataFrame_to_CSV', start_to_csv, finish_to_csv)
+    print(bcolors.RESET)
 
     # cursor.close()
     connect_database_sqlalchemy.dispose()
