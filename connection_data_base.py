@@ -5,10 +5,10 @@ from sqlalchemy import create_engine
 def prueba():
     return 'Prueba de que va funcionando lo que hago'
 
-def windows_authentication(driver_name, server_name, database_name):
+def windows_authentication_pyodbc( server_name, database_name):
     try:
         connection_windows_authentication = pyodbc.connect(
-            f'DRIVER={driver_name};SERVER={server_name};DATABASE={database_name};trusted_connection=true', autocommit=True)
+            f'DRIVER=SQL Server;SERVER={server_name};DATABASE={database_name};trusted_connection=true', autocommit=True)
         print('Conexión exitosa a la base de datos con pyodbc.')
 
         return connection_windows_authentication
