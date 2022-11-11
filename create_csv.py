@@ -31,12 +31,14 @@ def create_csv(server_name, database_name, sql_string, type_data):
     # name_file = f'{database_name}_{getdate}.csv'
     name_file = f'{type_data}_{database_name}.csv'
     file_abspath = os.path.abspath(name_file)
+    table_name = name_file.replace('.csv', '')
     df.to_csv(file_abspath, sep='|', index=True)
     finish_to_csv = time.strftime("%H:%M:%S")
     print(bcolors.OK)
     print_time_start_finished('DataFrame_to_CSV', start_to_csv, finish_to_csv)
     print(f'''Nombre del archivo: {name_file}
-    Ruta del archivo: {file_abspath}''')
+    Ruta del archivo: {file_abspath}
+    Nombre para la tabla: {table_name}''')
     print(bcolors.RESET)
 
-    return name_file, file_abspath
+    return name_file, file_abspath, table_name
