@@ -2,13 +2,12 @@ import querys_sql as sql
 from create_csv import create_csv
 import bulk_insert_database as bki
 import connection_data_base as db
-from sqlalchemy import MetaData, Table, Column, Integer, String
-import sqlalchemy
-from sqlalchemy.orm import sessionmaker
 from bcolors import bcolors
+import copy
+
 
 class InformationObject:
-    def __init__(self):
+    def __init__(self) -> object:
         self.name_file = ''
         self.file_abspath = ''
         self.table_name = ''
@@ -20,68 +19,85 @@ class InformationObject:
         print(f'The table name is: {self.table_name}')
         print('***************************')
 
+    def return_dictionary(self):
+        return dict({
+            'name_file': self.name_file,
+            'file_abspath': self.file_abspath,
+            'table_name': self.table_name
+        })
+
 
 if __name__ == '__main__':
+    # TODO: cambiar la lista por un archivo JSON
     list_object_to_load = []
-    infoFile1 = InformationObject()
-    infoFile2 = InformationObject()
-    infoFile3 = InformationObject()
-    infoFile4 = InformationObject()
+    infoFile = InformationObject()
 
-    database_name = 'dbStreaming'
-    server_name = 'AGN5\SQLEXPRESS'
-    infoFile1.name_file, infoFile1.file_abspath, infoFile1.table_name = create_csv(server_name, database_name, sql.list_all_tables(), 'tables')
-    list_object_to_load.append(infoFile1)
+    # database_name = 'dbStreaming'
+    # server_name = 'AGN5\SQLEXPRESS'
+    # infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+    #                                                                             sql.list_all_tables(), 'tables')
+    # list_object_to_load.append(copy.deepcopy(infoFile))
 
     database_name = 'AdventureWorks2019'
-    # server_name = 'AGN5\SQLEXPRESS'
-    infoFile2.name_file, infoFile2.file_abspath, infoFile2.table_name = create_csv(server_name, database_name, sql.list_all_tables(), 'tables')
-    list_object_to_load.append(infoFile2)
+    server_name = 'AGN5\SQLEXPRESS'
+    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                sql.list_all_tables(), 'tables')
+    list_object_to_load.append(copy.deepcopy(infoFile))
 
-    database_name = 'CoderHouse'
-    # server_name = 'AGN5\SQLEXPRESS'
-    infoFile3.name_file, infoFile3.file_abspath, infoFile3.table_name = create_csv(server_name, database_name, sql.list_all_tables(), 'tables')
-    list_object_to_load.append(infoFile3)
+    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                sql.list_all_columns_tables(),
+                                                                                'columns_tables')
+    list_object_to_load.append(copy.deepcopy(infoFile))
 
-    database_name = 'replica_dbSistemaInventarioTiendaSentimientos'
-    # server_name = 'AGN5\SQLEXPRESS'
-    infoFile4.name_file, infoFile4.file_abspath, infoFile4.table_name = create_csv(server_name, database_name, sql.list_all_tables(), 'tables')
-    list_object_to_load.append(infoFile4)
+    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                sql.list_all_constraint_column_usage(),
+                                                                                'constraint_column_usage')
+    list_object_to_load.append(copy.deepcopy(infoFile))
 
-    # TODO: Pendiente por mejorar para convertir en funciones.
+    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                sql.list_all_constraint_table(),
+                                                                                'constraint_table')
+    list_object_to_load.append(copy.deepcopy(infoFile))
+
+    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                sql.list_all_stpr_parameters(),
+                                                                                'stpr_parameters')
+    list_object_to_load.append(copy.deepcopy(infoFile))
+
+    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                sql.list_all_view_column_usage(),
+                                                                                'view_column_usage')
+    list_object_to_load.append(copy.deepcopy(infoFile))
+
+    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                sql.list_all_routines(),
+                                                                                'routines')
+    list_object_to_load.append(copy.deepcopy(infoFile))
+
+    # database_name = 'CoderHouse'
+    # # server_name = 'AGN5\SQLEXPRESS'
+    # infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+    #                                                                             sql.list_all_tables(), 'tables')
+    # list_object_to_load.append(copy.deepcopy(infoFile))
+
+    # database_name = 'replica_dbSistemaInventarioTiendaSentimientos'
+    # # server_name = 'AGN5\SQLEXPRESS'
+    # infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+    #                                                                             sql.list_all_tables(), 'tables')
+    # list_object_to_load.append(copy.deepcopy(infoFile))
+
     engine = db.windows_authentication_sqlalchemy(server_name, 'appTest')
     for info_file in list_object_to_load:
-        if not sqlalchemy.inspect(engine).has_table(info_file.table_name):
-            metadata = MetaData(engine)
-            Table(info_file.table_name, metadata,
-                  Column('ID', Integer, primary_key=True, nullable=False, autoincrement=False),
-                  Column('TABLE_SCHEMA', String),
-                  Column('TABLE_NAME', String)
-                  )
-            metadata.create_all()
+        is_create = sql.create_table_info_tables(engine, info_file.table_name)
+        if not is_create:
+            sql.truncate_table(engine, info_file.table_name)
 
-        meta_data = MetaData(engine)
-        sqlalchemy.MetaData.reflect(meta_data)
-        name_table_for_count = meta_data.tables[info_file.table_name]
-
-        result = sqlalchemy.select([sqlalchemy.func.count()]).select_from(name_table_for_count).scalar()
-        if result > 0:
-            Session = sessionmaker(bind=engine)
-            session = Session()
-            session.execute(f'''TRUNCATE TABLE {info_file.table_name}''')
-            session.commit()
-            session.close()
-            print(f'Tabla {info_file.table_name} borrada correctamente')
-
-        print("Count:", result)
+    for info_file in list_object_to_load:
         bki.bulk_insert_csv(server_name, 'appTest', info_file.table_name, info_file.file_abspath)
-
-    # name_file, file_abspath = create_csv(server_name, database_name, sql.list_all_columns_tables(), 'columns_tables')
-    # print(name_file)
-    # print(file_abspath)
-    # cursor.close()
 
     print(f'{bcolors.BOLD_RED}ELEMENTOS DE LA LISTA{bcolors.RESET}')
     for obj in list_object_to_load:
         # print(obj.name_file)
-        obj.print_information()
+        # obj.print_information()
+        print(obj.return_dictionary())
+    engine.dispose()
