@@ -11,6 +11,7 @@ class InformationObject:
         self.name_file = ''
         self.file_abspath = ''
         self.table_name = ''
+        self.type_data = ''
 
     def print_information(self):
         print('***************************')
@@ -23,7 +24,8 @@ class InformationObject:
         return dict({
             'name_file': self.name_file,
             'file_abspath': self.file_abspath,
-            'table_name': self.table_name
+            'table_name': self.table_name,
+            'type_data': self.type_data
         })
 
 
@@ -34,61 +36,29 @@ if __name__ == '__main__':
 
     # database_name = 'dbStreaming'
     # server_name = 'AGN5\SQLEXPRESS'
-    # infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-    #                                                                             sql.list_all_tables(), 'tables')
-    # list_object_to_load.append(copy.deepcopy(infoFile))
-
-    database_name = 'AdventureWorks2019'
-    server_name = 'AGN5\SQLEXPRESS'
-    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                sql.list_all_tables(), 'tables')
-    list_object_to_load.append(copy.deepcopy(infoFile))
-
-    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                sql.list_all_columns_tables(),
-                                                                                'columns_tables')
-    list_object_to_load.append(copy.deepcopy(infoFile))
-
-    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                sql.list_all_constraint_column_usage(),
-                                                                                'constraint_column_usage')
-    list_object_to_load.append(copy.deepcopy(infoFile))
-
-    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                sql.list_all_constraint_table(),
-                                                                                'constraint_table')
-    list_object_to_load.append(copy.deepcopy(infoFile))
-
-    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                sql.list_all_stpr_parameters(),
-                                                                                'stpr_parameters')
-    list_object_to_load.append(copy.deepcopy(infoFile))
-
-    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                sql.list_all_view_column_usage(),
-                                                                                'view_column_usage')
-    list_object_to_load.append(copy.deepcopy(infoFile))
-
-    infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                sql.list_all_routines(),
-                                                                                'routines')
-    list_object_to_load.append(copy.deepcopy(infoFile))
 
     # database_name = 'CoderHouse'
     # # server_name = 'AGN5\SQLEXPRESS'
-    # infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-    #                                                                             sql.list_all_tables(), 'tables')
-    # list_object_to_load.append(copy.deepcopy(infoFile))
 
     # database_name = 'replica_dbSistemaInventarioTiendaSentimientos'
-    # # server_name = 'AGN5\SQLEXPRESS'
-    # infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-    #                                                                             sql.list_all_tables(), 'tables')
-    # list_object_to_load.append(copy.deepcopy(infoFile))
+    # server_name = 'AGN5\SQLEXPRESS'
+
+    database_name = 'AdventureWorks2019'
+    server_name = 'AGN5\SQLEXPRESS'
+    # IF add element included in function list_selected of querys_sql.py
+    type_data_select = ['tables', 'columns_tables', 'constraint_column_usage', 'constraint_table', 'stpr_parameters',
+                        'view_column_usage', 'routines']
+
+    for type_data in type_data_select:
+        infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
+                                                                                    sql.list_selected(type_data),
+                                                                                    type_data)
+        infoFile.type_data = type_data
+        list_object_to_load.append(copy.deepcopy(infoFile))
 
     engine = db.windows_authentication_sqlalchemy(server_name, 'appTest')
     for info_file in list_object_to_load:
-        is_create = sql.create_table_info_tables(engine, info_file.table_name)
+        is_create = sql.create_table_selected(engine, info_file.table_name, info_file.type_data)
         if not is_create:
             sql.truncate_table(engine, info_file.table_name)
 

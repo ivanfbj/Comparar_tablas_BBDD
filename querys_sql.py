@@ -1,11 +1,13 @@
+from typing import Dict
+
 from sqlalchemy import MetaData, Table, Column, Integer, String
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
 
-def create_table_info_tables(conect_engine, table_name):
-    if not sqlalchemy.inspect(conect_engine).has_table(table_name):
-        metadata = MetaData(conect_engine)
+def create_table_info_tables(connect_engine, table_name):
+    if not sqlalchemy.inspect(connect_engine).has_table(table_name):
+        metadata = MetaData(connect_engine)
         Table(table_name, metadata,
               Column('ID', Integer, primary_key=True, nullable=False, autoincrement=False),
               Column('TABLE_SCHEMA', String(150)),
@@ -155,7 +157,7 @@ def create_table_info_view_column_usage(connect_engine, table_name):
               Column('ID', Integer, primary_key=True, nullable=False, autoincrement=False),
               Column('VIEW_SCHEMA', String(150)),
               Column('VIEW_NAME', String(150)),
-              Column('TABLE_SCHEMA', Integer),
+              Column('TABLE_SCHEMA', String(150)),
               Column('TABLE_NAME', String(150)),
               Column('COLUMN_NAME', String(150))
               )
@@ -227,3 +229,30 @@ def truncate_table(connect_engine, table_name):
         session.commit()
         session.close()
         print(f'Tabla: {table_name} borrada correctamente. Cantidad eliminada: {result}')
+
+
+def list_selected(name_list_selected):
+    switcher: dict[str, str] = {'tables': list_all_tables(), 'columns_tables': list_all_columns_tables(),
+                                'constraint_column_usage': list_all_constraint_column_usage(),
+                                'constraint_table': list_all_constraint_table(),
+                                'stpr_parameters': list_all_stpr_parameters(),
+                                'view_column_usage': list_all_view_column_usage(), 'routines': list_all_routines()}
+
+    return switcher.get(name_list_selected, "nothing")
+
+
+def create_table_selected(connect_engine, table_name, type_data):
+    if type_data == 'tables':
+        create_table_info_tables(connect_engine, table_name)
+    elif type_data == 'columns_tables':
+        create_table_info_columns_tables(connect_engine, table_name)
+    elif type_data == 'constraint_column_usage':
+        create_table_info_constraint_column_usage(connect_engine, table_name)
+    elif type_data == 'constraint_table':
+        create_table_info_constraint_table(connect_engine, table_name)
+    elif type_data == 'stpr_parameters':
+        create_table_info_stpr_parameters(connect_engine, table_name)
+    elif type_data == 'view_column_usage':
+        create_table_info_view_column_usage(connect_engine, table_name)
+    elif type_data == 'routines':
+        create_table_info_routines(connect_engine, table_name)
