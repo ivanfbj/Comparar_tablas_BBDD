@@ -29,45 +29,59 @@ class InformationObject:
         })
 
 
+def for_create_csv(in_server_name, in_database_name, list_type_data_select, in_list_object_to_load):
+    info_file = InformationObject()
+    for type_data in list_type_data_select:
+        info_file.name_file, info_file.file_abspath, info_file.table_name = create_csv(in_server_name,
+                                                                                       in_database_name,
+                                                                                       sql.list_selected(type_data),
+                                                                                       type_data)
+        info_file.type_data = type_data
+        in_list_object_to_load.append(copy.deepcopy(info_file))
+
+
+def for_create_or_truncate_tables(local_server_name, in_local_database_name, in_list_object_to_load):
+    engine = db.windows_authentication_sqlalchemy(local_server_name, in_local_database_name)
+    for obj_info_file in in_list_object_to_load:
+        is_create = sql.create_table_selected(engine, obj_info_file.table_name, obj_info_file.type_data)
+        if not is_create:
+            sql.truncate_table(engine, obj_info_file.table_name)
+    engine.dispose()
+
+
+def for_bulk_insert_csv(local_server_name, in_local_database_name, in_list_object_to_load):
+    for obj_info_file in in_list_object_to_load:
+        bki.bulk_insert_csv(local_server_name, in_local_database_name,
+                            obj_info_file.table_name, obj_info_file.file_abspath)
+
+
 if __name__ == '__main__':
     # TODO: cambiar la lista por un archivo JSON
     list_object_to_load = []
-    infoFile = InformationObject()
-
-    # database_name = 'dbStreaming'
-    # server_name = 'AGN5\SQLEXPRESS'
-
-    # database_name = 'CoderHouse'
-    # # server_name = 'AGN5\SQLEXPRESS'
-
-    # database_name = 'replica_dbSistemaInventarioTiendaSentimientos'
-    # server_name = 'AGN5\SQLEXPRESS'
-
-    database_name = 'AdventureWorks2019'
-    server_name = 'AGN5\SQLEXPRESS'
+    # infoFile = InformationObject()
     # IF add element included in function list_selected of querys_sql.py
     type_data_select = ['tables', 'columns_tables', 'constraint_column_usage', 'constraint_table', 'stpr_parameters',
                         'view_column_usage', 'routines']
 
-    for type_data in type_data_select:
-        infoFile.name_file, infoFile.file_abspath, infoFile.table_name = create_csv(server_name, database_name,
-                                                                                    sql.list_selected(type_data),
-                                                                                    type_data)
-        infoFile.type_data = type_data
-        list_object_to_load.append(copy.deepcopy(infoFile))
+    database_name = 'AdventureWorks2019'
+    server_name = 'AGN5\SQLEXPRESS'
+    local_database_name = 'LocalDB'
+    for_create_csv(server_name, database_name, type_data_select, list_object_to_load)
+    for_create_or_truncate_tables(server_name, local_database_name, list_object_to_load)
+    for_bulk_insert_csv(server_name, local_database_name, list_object_to_load)
 
-    engine = db.windows_authentication_sqlalchemy(server_name, 'appTest')
-    for info_file in list_object_to_load:
-        is_create = sql.create_table_selected(engine, info_file.table_name, info_file.type_data)
-        if not is_create:
-            sql.truncate_table(engine, info_file.table_name)
+    database_name = 'AdventureWorks2012'
+    server_name = 'AGN5\SQLEXPRESS'
+    for_create_csv(server_name, database_name, type_data_select, list_object_to_load)
+    for_create_or_truncate_tables(server_name, local_database_name, list_object_to_load)
+    for_bulk_insert_csv(server_name, local_database_name, list_object_to_load)
 
-    for info_file in list_object_to_load:
-        bki.bulk_insert_csv(server_name, 'appTest', info_file.table_name, info_file.file_abspath)
+    database_name = 'AdventureWorks2016'
+    server_name = 'AGN5\SQLEXPRESS'
+    for_create_csv(server_name, database_name, type_data_select, list_object_to_load)
+    for_create_or_truncate_tables(server_name, local_database_name, list_object_to_load)
+    for_bulk_insert_csv(server_name, local_database_name, list_object_to_load)
 
     print(f'{bcolors.BOLD_RED}ELEMENTOS DE LA LISTA{bcolors.RESET}')
     for obj in list_object_to_load:
-        # print(obj.name_file)
-        # obj.print_information()
         print(obj.return_dictionary())
-    engine.dispose()
