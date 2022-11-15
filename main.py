@@ -63,24 +63,26 @@ if __name__ == '__main__':
     type_data_select = ['tables', 'columns_tables', 'constraint_column_usage', 'constraint_table', 'stpr_parameters',
                         'view_column_usage', 'routines']
 
-    database_name = 'AdventureWorks2019'
-    server_name = 'AGN5\SQLEXPRESS'
     local_database_name = 'LocalDB'
+    local_server_name = 'localhost\SQLEXPRESS'
+
+    database_name = 'AdventureWorks2019'
+    server_name = 'localhost\SQLEXPRESS'
     for_create_csv(server_name, database_name, type_data_select, list_object_to_load)
-    for_create_or_truncate_tables(server_name, local_database_name, list_object_to_load)
-    for_bulk_insert_csv(server_name, local_database_name, list_object_to_load)
+    for_create_or_truncate_tables(local_server_name, local_database_name, list_object_to_load)
+    for_bulk_insert_csv(local_server_name, local_database_name, list_object_to_load)
 
     database_name = 'AdventureWorks2012'
-    server_name = 'AGN5\SQLEXPRESS'
+    server_name = 'localhost\SQLEXPRESS'
     for_create_csv(server_name, database_name, type_data_select, list_object_to_load)
-    for_create_or_truncate_tables(server_name, local_database_name, list_object_to_load)
-    for_bulk_insert_csv(server_name, local_database_name, list_object_to_load)
+    for_create_or_truncate_tables(local_server_name, local_database_name, list_object_to_load)
+    for_bulk_insert_csv(local_server_name, local_database_name, list_object_to_load)
 
     database_name = 'AdventureWorks2016'
-    server_name = 'AGN5\SQLEXPRESS'
+    server_name = 'localhost\SQLEXPRESS'
     for_create_csv(server_name, database_name, type_data_select, list_object_to_load)
-    for_create_or_truncate_tables(server_name, local_database_name, list_object_to_load)
-    for_bulk_insert_csv(server_name, local_database_name, list_object_to_load)
+    for_create_or_truncate_tables(local_server_name, local_database_name, list_object_to_load)
+    for_bulk_insert_csv(local_server_name, local_database_name, list_object_to_load)
 
     print(f'{bcolors.BOLD_RED}ELEMENTOS DE LA LISTA{bcolors.RESET}')
     for obj in list_object_to_load:
