@@ -8,7 +8,7 @@ def bulk_insert_csv(server_name, database_name, file_and_table_name, file_abspat
     try:
         print(f'Hora Inicio Bulk: {time.strftime("%H:%M:%S")} File: {file_and_table_name}')
         cursor.execute(
-            f"BULK INSERT {file_and_table_name} FROM '{file_abspath}' WITH(FIELDTERMINATOR='|', ROWTERMINATOR='\n', FIRSTROW=2)")
+            f"BULK INSERT {file_and_table_name} FROM '{file_abspath}' WITH(FIELDTERMINATOR='|', ROWTERMINATOR='\\n', FIRSTROW=2)")
         connect_database_pyodbc.commit()
         print(f'Hora Fin Bulk: {time.strftime("%H:%M:%S")}')
     except Exception as ex:
