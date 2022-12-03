@@ -51,13 +51,16 @@ def create_table_info_columns_tables(connect_engine, table_name):
 def list_all_columns_tables():
     return '''
         SELECT
-            TABLE_SCHEMA,
-		    TABLE_NAME,
-		    COLUMN_NAME,
-		    ORDINAL_POSITION,
-		    DATA_TYPE
+            col.TABLE_SCHEMA,
+            col.TABLE_NAME,
+            col.COLUMN_NAME,
+            col.ORDINAL_POSITION,
+            col.DATA_TYPE
         FROM
-            INFORMATION_SCHEMA.COLUMNS
+            INFORMATION_SCHEMA.COLUMNS AS col
+            INNER JOIN INFORMATION_SCHEMA.TABLES AS tab ON (col.TABLE_SCHEMA = tab.TABLE_SCHEMA
+                                                            AND col.TABLE_NAME = tab.TABLE_NAME)
+        WHERE tab.TABLE_TYPE = 'BASE TABLE'
     '''
 
 
