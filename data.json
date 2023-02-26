@@ -1,0 +1,130 @@
+{
+    "data": [
+        {
+            "name_file": "tables_AdventureWorks2019.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\tables_AdventureWorks2019.csv",
+            "table_name": "tables_AdventureWorks2019",
+            "type_data": "tables"
+        },
+        {
+            "name_file": "columns_tables_AdventureWorks2019.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\columns_tables_AdventureWorks2019.csv",
+            "table_name": "columns_tables_AdventureWorks2019",
+            "type_data": "columns_tables"
+        },
+        {
+            "name_file": "constraint_column_usage_AdventureWorks2019.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\constraint_column_usage_AdventureWorks2019.csv",
+            "table_name": "constraint_column_usage_AdventureWorks2019",
+            "type_data": "constraint_column_usage"
+        },
+        {
+            "name_file": "constraint_table_AdventureWorks2019.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\constraint_table_AdventureWorks2019.csv",
+            "table_name": "constraint_table_AdventureWorks2019",
+            "type_data": "constraint_table"
+        },
+        {
+            "name_file": "stpr_parameters_AdventureWorks2019.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\stpr_parameters_AdventureWorks2019.csv",
+            "table_name": "stpr_parameters_AdventureWorks2019",
+            "type_data": "stpr_parameters"
+        },
+        {
+            "name_file": "view_column_usage_AdventureWorks2019.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\view_column_usage_AdventureWorks2019.csv",
+            "table_name": "view_column_usage_AdventureWorks2019",
+            "type_data": "view_column_usage"
+        },
+        {
+            "name_file": "routines_AdventureWorks2019.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\routines_AdventureWorks2019.csv",
+            "table_name": "routines_AdventureWorks2019",
+            "type_data": "routines"
+        },
+        {
+            "name_file": "tables_AdventureWorks2012.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\tables_AdventureWorks2012.csv",
+            "table_name": "tables_AdventureWorks2012",
+            "type_data": "tables"
+        },
+        {
+            "name_file": "columns_tables_AdventureWorks2012.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\columns_tables_AdventureWorks2012.csv",
+            "table_name": "columns_tables_AdventureWorks2012",
+            "type_data": "columns_tables"
+        },
+        {
+            "name_file": "constraint_column_usage_AdventureWorks2012.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\constraint_column_usage_AdventureWorks2012.csv",
+            "table_name": "constraint_column_usage_AdventureWorks2012",
+            "type_data": "constraint_column_usage"
+        },
+        {
+            "name_file": "constraint_table_AdventureWorks2012.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\constraint_table_AdventureWorks2012.csv",
+            "table_name": "constraint_table_AdventureWorks2012",
+            "type_data": "constraint_table"
+        },
+        {
+            "name_file": "stpr_parameters_AdventureWorks2012.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\stpr_parameters_AdventureWorks2012.csv",
+            "table_name": "stpr_parameters_AdventureWorks2012",
+            "type_data": "stpr_parameters"
+        },
+        {
+            "name_file": "view_column_usage_AdventureWorks2012.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\view_column_usage_AdventureWorks2012.csv",
+            "table_name": "view_column_usage_AdventureWorks2012",
+            "type_data": "view_column_usage"
+        },
+        {
+            "name_file": "routines_AdventureWorks2012.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\routines_AdventureWorks2012.csv",
+            "table_name": "routines_AdventureWorks2012",
+            "type_data": "routines"
+        },
+        {
+            "name_file": "tables_AdventureWorks2016.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\tables_AdventureWorks2016.csv",
+            "table_name": "tables_AdventureWorks2016",
+            "type_data": "tables"
+        },
+        {
+            "name_file": "columns_tables_AdventureWorks2016.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\columns_tables_AdventureWorks2016.csv",
+            "table_name": "columns_tables_AdventureWorks2016",
+            "type_data": "columns_tables"
+        },
+        {
+            "name_file": "constraint_column_usage_AdventureWorks2016.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\constraint_column_usage_AdventureWorks2016.csv",
+            "table_name": "constraint_column_usage_AdventureWorks2016",
+            "type_data": "constraint_column_usage"
+        },
+        {
+            "name_file": "constraint_table_AdventureWorks2016.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\constraint_table_AdventureWorks2016.csv",
+            "table_name": "constraint_table_AdventureWorks2016",
+            "type_data": "constraint_table"
+        },
+        {
+            "name_file": "stpr_parameters_AdventureWorks2016.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\stpr_parameters_AdventureWorks2016.csv",
+            "table_name": "stpr_parameters_AdventureWorks2016",
+            "type_data": "stpr_parameters"
+        },
+        {
+            "name_file": "view_column_usage_AdventureWorks2016.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\view_column_usage_AdventureWorks2016.csv",
+            "table_name": "view_column_usage_AdventureWorks2016",
+            "type_data": "view_column_usage"
+        },
+        {
+            "name_file": "routines_AdventureWorks2016.csv",
+            "file_abspath": "D:\\Nubes\\OneDrive - Instituci\u00f3n Universitaria de Envigado - IUE\\Desarrollo\\Comparar_tablas_BBDD\\routines_AdventureWorks2016.csv",
+            "table_name": "routines_AdventureWorks2016",
+            "type_data": "routines"
+        }
+    ]
+}
